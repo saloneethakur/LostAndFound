@@ -11,12 +11,11 @@ import lombok.NoArgsConstructor;
 public class UserModel {
 
 	
-    private String username;
-   
-    private String email;  
-    private String phone;    
-    private String password; 
-    
+    private String name;
+    private String phone;  
     private String enrollmentId;
+    private String email;  
+    private String password; 
+    private String role;
 
 }

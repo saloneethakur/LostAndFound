@@ -1,88 +1,110 @@
 package com.lostandfound.entities;
 
+import java.util.Arrays;
 import java.util.Collection;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+public class User implements UserDetails
+{
+	@Id
+	@Column(name = "user_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer userId;
+	
+	@Column(name = "email",nullable = false,unique = true)
+	private String email;
+	
+	@Column(name = "password",nullable = false)
+	@JsonIgnore
+	private String password;
+	
+	@Column(name = "role",nullable = false)
+	private String role;
+	
+	@Column(name = "name",nullable = false,unique = false)
+	private String name;
+	
+	@Column(name = "phone",nullable = false,unique = false)
+	private String phone;
+	
+	@Column(name="enrollmentid",nullable = false,unique = true)
+	private String enrollmentId;
 
-public class User implements UserDetails{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
-
-    @Column(name = "username",nullable=false)
-    private String username;
-
-    @Column(name = "password",nullable=false)
-    private String password;
-
-    @Column(name = "email",nullable=false,unique=true)
-    private String email;
-
-    @Column(name = "phone",nullable=false,unique=true)
-    private String phone;
-
-    @Column(name = "enrollment_id",nullable=false,unique=true)
-    private String enrollmentId;
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() 
+	{
+		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(this.getRole());
+		return Arrays.asList(authority);
+	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.email;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
-	public User(String username,String email,String phone, String password, String enrollmentId) {
+	public User(String email, String password, String role) {
 		super();
-		this.username = username;
-		this.password = password;
 		this.email = email;
+		this.password = password;
+		this.role = role;
+		
+	}
+
+	public User(String email, String password, String role, String name, String phone, String enrollmentId) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.name = name;
 		this.phone = phone;
 		this.enrollmentId = enrollmentId;
 	}
-
 	
-
-	
-
-   
 }

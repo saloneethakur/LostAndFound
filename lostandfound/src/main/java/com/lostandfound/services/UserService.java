@@ -40,10 +40,11 @@ public class UserService implements UserDetailsService {
 	public String saveUser(UserModel model) {
 		
 		try {
-			
-			User user = new User(model.getUsername(),model.getEmail(),model.getPhone(),model.getPassword(),model.getEnrollmentId());
+			//(String email, String password, String role, String name, String phone, String enrollmentId)
+			User user = new User(model.getEmail(), model.getPassword(), "ROLE_USER",model.getName(),model.getPhone(),model.getEnrollmentId());
 			 userRepo.save(user);
 			return "Save Successful";
+			
 			}
 		catch (Exception e) {
 			return e.getMessage();

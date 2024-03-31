@@ -15,12 +15,15 @@ public class LostModel {
 
 	
     private String itemName; 
+    private String category;
     private String description;
     private String location;
-    private Date date;
     private String type; 
-    private String  username;
-    private String phone;
-    private String enrollmentId;
+    private String date;
+    //private String image;
+   
+   
+    
+   
 
 }

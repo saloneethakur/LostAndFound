@@ -31,16 +31,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	@Override
 	protected void configure(HttpSecurity http) throws Exception 
 	{
+		System.out.println("Hello");
 		 	http.csrf().disable();
 		
 	        http.authorizeRequests()        
 	        .antMatchers("/").permitAll()
 	        .antMatchers("/web/**").permitAll()
 	                
-	        .antMatchers("/admin/**").hasRole("ADMIN")	
-	        .antMatchers("/medical/**").hasRole("MEDICAL")
-	        .antMatchers("/patient/**").hasRole("PATIENT")
-	        .antMatchers("/user/**").hasAnyRole("ADMIN","MEDICAL","PATIENT")
+	        
+	        .antMatchers("/user/**").hasRole("USER")
 	        .and()        
 	        .formLogin().loginPage("/web/login").permitAll()
 	        .defaultSuccessUrl("/web/home").usernameParameter("email")

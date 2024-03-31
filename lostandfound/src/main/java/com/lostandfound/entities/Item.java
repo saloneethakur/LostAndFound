@@ -26,13 +26,12 @@ public class Item {
 
     @Column(name = "item_name")
     private String itemName;
+    
+    private String category;
 
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user; 
 
     
     @Column(name = "location")
@@ -44,6 +43,26 @@ public class Item {
     
     @Column(name = "date", nullable = false)
     private Date date;
+    
+    private String image;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+	public Item(String itemName, String category, String description, String location, String type, Date date,
+			String image, User user) {
+		super();
+		this.itemName = itemName;
+		this.category = category;
+		this.description = description;
+		this.location = location;
+		this.type = type;
+		this.date = date;
+		this.image = image;
+		this.user = user;
+	} 
+
 
     
 }
