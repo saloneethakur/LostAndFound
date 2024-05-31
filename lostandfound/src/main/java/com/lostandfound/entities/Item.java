@@ -46,12 +46,14 @@ public class Item {
     
     private String image;
     
+    private String item_status;
+    
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
 	public Item(String itemName, String category, String description, String location, String type, Date date,
-			String image, User user) {
+			String image, User user,String status) {
 		super();
 		this.itemName = itemName;
 		this.category = category;
@@ -61,6 +63,7 @@ public class Item {
 		this.date = date;
 		this.image = image;
 		this.user = user;
+		this.item_status = status;
 	} 
 
 

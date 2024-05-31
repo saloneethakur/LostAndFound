@@ -1,10 +1,20 @@
 package com.lostandfound.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lostandfound.services.UserService;
 
@@ -19,7 +29,6 @@ public class web_controller {
 	private UserService UserService;
 	
 	
-	
 	@RequestMapping(value = "/reg_user")
 	public String reg_user(UserModel model,ModelMap map)
 	{
@@ -28,12 +37,12 @@ public class web_controller {
 		if(res.equals("Save Successful"))
 		{
 			map.addAttribute("msg", "User Registered Successful");
-			return "login";
+			return "index";
 		}
 		else 
 		{
 			map.addAttribute("errorMsg", "User not Register Successful");
-			return "login";
+			return "index";
 		}	
 	}
 	
@@ -57,11 +66,15 @@ public class web_controller {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = (User)principal;
 		System.out.println(user);
-		return "found";
+		return "index2";
 	}
 	
 	
-	
+	@RequestMapping(value="/display")
+	public String display()
+	{
+		return "displayItems";
+	}
 	@RequestMapping(value="/reportlost")
 	public String lost()
 	{
@@ -73,4 +86,9 @@ public class web_controller {
 		return "login";
 	}
 	
+	@RequestMapping(value="/signup")
+	public String signup()
+	{
+		return "signup";
+	}
 }

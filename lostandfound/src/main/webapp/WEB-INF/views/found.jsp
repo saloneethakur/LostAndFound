@@ -68,6 +68,9 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+<button  class="btn transparent"  id="sign-in-btn"  onclick="location.href='/user/displayItems'">  
+        	login
+        </button>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
